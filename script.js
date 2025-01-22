@@ -5,10 +5,7 @@
 
 ///////////////////////////////////////////////////////////////////
 //////////Create variables from  html
-const startPage = document.getElementById('startPage');
-const adminPage = document.getElementById('adminPage');
-const studentPage = document.getElementById('studentPage');
-const recordingPage = document.getElementById('recordingPage');
+
 const saveButton = document.getElementById('saveButton');
 const checkStudentButton = document.getElementById('checkStudentButton');
 const studentFirstNameInput = document.getElementById('studentFirstName');
@@ -21,51 +18,33 @@ const tableBody = document.querySelector('#dataTable tbody');
 ////////////////Show different pages
 // Show start page
 const showStartPage = () => {
-    startPage.style.display = 'block'; // Show the start page
-    adminPage.style.display = 'none'; // Hide Admin page
-    studentPage.style.display = 'none'; // Hide Student page
-    recordingPage.style.display = 'none';
+    window.location.href = 'index.html';
 };
 
 // Show admin page
 const showAdminPage = () => {
-    startPage.style.display = 'none'; // Hide start page
-    adminPage.style.display = 'block'; // Show Admin page
-    studentPage.style.display = 'none'; // Hide Student page
-    recordingPage.style.display = 'none';
+  window.location.href = 'admin.html';
     loadTableData(); // Load table data from localStorage
 };
 
 // Show student page
 const showStudentPage = () => {
-    startPage.style.display = 'none'; // Hide start page
-    adminPage.style.display = 'none'; // Hide Admin page
-    studentPage.style.display = 'block'; // Show Student page
-    recordingPage.style.display = 'none';
+  window.location.href = 'student.html';
 };
 
-// Show student page
+// Show recording page
 const showRecordingPage = () => {
-  startPage.style.display = 'none'; // Hide start page
-  adminPage.style.display = 'none'; // Hide Admin page
-  studentPage.style.display = 'none'; 
-  recordingPage.style.display = 'block';// Show Recording page
+  window.location.href = 'recording.html';
 };
 
 ///////////////////////////////////////////////////////////////////
 //////////////Start page functions
-//Open admin or student page from start page using buttons
-document.getElementById('adminButton').addEventListener('click', showAdminPage);
-document.getElementById('studentButton').addEventListener('click', showStudentPage);
+
 
 
 ///////////////////////////////////////////////////////////////////
 /////////Admin table page functions
-// Back to Start from Admin
-document.getElementById('backToStartFromAdmin').addEventListener('click', () => {
-    document.getElementById('adminPage').style.display = 'none';
-    document.getElementById('startPage').style.display = 'block';
-});
+
 
 // Load saved data from local storage
 const loadTableData = () => {
@@ -188,11 +167,7 @@ const allRowsFilled = () => {
 
 ///////////////////////////////////////////////////////////////////
 /////////Student name entry and timeslot selection page functions
-// Back to Start from Student
-document.getElementById('backToStartFromStudent').addEventListener('click', () => {
-    document.getElementById('studentPage').style.display = 'none';
-    document.getElementById('startPage').style.display = 'block';
-});
+
 
 //Student lookup button functionality
 checkStudentButton.addEventListener('click', () => {
