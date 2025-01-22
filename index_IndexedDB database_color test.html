@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endeavor GCSI Procedure Room Recording System</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #003366;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #003d80;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #1e7e34;
+        }
+
+        .btn-default {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+        }
+
+        .btn-default:hover {
+            background-color: #e2e6ea;
+        }
+
+        table th {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table td, table th {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center; /* Align label and input horizontally */
+        }
+
+        .input-group label {
+            width: 15%; /* Set the label width to 30% */
+            margin-right: 1px; /* Add some space between the label and input */
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 70%; /* Set the input width to take up the remaining space */
+        }
+
+        .back-button {
+            margin-top: 20px;
+        }
+
+        .btn-group {
+            gap:15px;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: space-between;  /* Space out the videos */
+            margin-bottom: 20px;
+        }
+
+        .video-item {
+            flex: 1;  /* Allow videos to take up equal space */
+            margin: 0 10px;  /* Add some space between video items */
+            text-align: center;  /* Center labels and videos */
+        }
+
+        video {
+            width: 100%;  /* Make the videos take up the full width of their container */
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .recording-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        .modal button {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Welcome Page -->
+    <div id="startPage" class="container">
+        <div class="card p-4">
+            <h1>Welcome to Endeavor GCSI's Procedure Room Recording System</h1>
+            <div class="d-flex justify-content-center mt-4 btn-group">
+                <button id="adminButton" class="btn btn-primary btn-lg">Administrator</button>
+                <button id="studentButton" class="btn btn-primary btn-lg">Student</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Administrator Page -->
+    <div id="adminPage" class="container" style="display:none;">
+        <div class="card p-4">
+            <h1>Administrator Dashboard</h1>
+            <div class="table-responsive">
+                <table id="dataTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Procedure Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-4">
+                <button id="saveButton" class="btn btn-primary">Save Data</button>
+                <button id="backToStartFromAdmin" class="btn btn-default">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Page -->
+    <div id="studentPage" class="container" style="display:none;">
+        <div class="card p-4">
+            <h1>Student Dashboard</h1>
+            <div class="input-group mb-3">
+                <label for="studentFirstName" class="form-label">First Name:</label>
+                <input type="text" id="studentFirstName" class="form-control" placeholder="Enter your first name">
+            </div>
+            <div class="input-group mb-3">
+                <label for="studentLastName" class="form-label">Last Name:</label>
+                <input type="text" id="studentLastName" class="form-control" placeholder="Enter your last name">
+            </div>
+            <div class="text-center">
+                <button id="checkStudentButton" class="btn btn-success">Check Timeslots</button>
+            </div>
+            <div id="timeslotResult" class="text-center mt-4"></div>
+            <div class="text-center back-button">
+                <button id="backToStartFromStudent" class="btn btn-default">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Recording Page-->
+    <div id="recordingPage" class="container" style="display:none;">
+        <h2>Record Your Video</h2>
+        <div class="video-container">
+            <div class="video-item">
+                <span id="videoLabel" role="label">Live Camera Stream</span>
+                <video id="video" autoplay aria-labelledby="videoLabel"></video>
+            </div>
+            <div class="video-item">
+                <span id="replayVideoLabel" role="label">Replay Recorded Video</span>
+                <video id="replayVideo" controls style="display: none;" aria-labelledby="replayVideoLabel"></video>
+            </div>
+        </div>
+        <div class="recording-buttons">
+            <button id="recordButton"  class="btn btn-success">Start Recording</button>
+            <button id="replayButton"  class="btn btn-warning">Replay</button>
+            <button id="deleteButton" class="btn btn-danger">Delete Recording</button>
+            <button id="uploadVideoButton"  class="btn btn-primary">Upload Video</button>
+        </div>
+    </div>
+
+    <!-- Timeslot Confirmation Modal -->
+    <div id="timeslotConfirmationModal" class="modal">
+        <div class="modal-content">
+        <p id="timeslotConfirmationText"></p>
+        <button id="confirmTimeslot" class="btn btn-success">Confirm</button>
+        <button id="backTimeslot" class="btn btn-default">Back</button>
+        </div>
+    </div>
+    
+    <!-- Upload Confirmation Modal -->
+    <div id="uploadConfirmationModal" class="modal">
+        <div class="modal-content">
+        <p>Are you sure you want to upload this video?</p>
+        <button id="confirmUpload" class="btn btn-success">Confirm</button>
+        <button id="backUpload" class="btn btn-default">Back</button>
+        </div>
+    </div>
+  
+    <!-- Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script_IndexedDB database.js"></script>
+</body>
+
+</html>

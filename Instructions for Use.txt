@@ -1,0 +1,15 @@
+Administrator: 
+1. Download OBS studio
+	-Set up and start virtual camera in OBS
+2. Open most up-to-date index.html
+	-Run index.html (F5)
+3. Open privacy/security setting in Chrome window that opens
+	-Set camera to "OBS virtual camera"
+4. Leave webpage on start screen
+
+Student:
+1. Login and record video as needed
+
+Preceptor:
+1. Find saved .webm video in Downloads folder
+2. To view, either convert to mp4 using web converter OR right click file and open in Chrome
